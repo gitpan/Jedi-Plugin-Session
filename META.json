@@ -33,7 +33,11 @@
             "Import::Into" : "0",
             "Jedi" : "1.002",
             "Module::Runtime" : "0",
+            "Moo" : "0",
             "Moo::Role" : "0",
+            "Redis" : "0",
+            "Sereal" : "0",
+            "Time::Duration::Parse" : "0",
             "perl" : "5.010",
             "strict" : "0",
             "warnings" : "0"
@@ -68,7 +72,7 @@
          "web" : "https://github.com/celogeek/perl-jedi-plugin-session"
       }
    },
-   "version" : "0.01",
+   "version" : "0.02",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.018001"

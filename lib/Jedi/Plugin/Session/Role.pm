@@ -12,7 +12,7 @@ package Jedi::Plugin::Session::Role;
 
 use strict;
 use warnings;
-our $VERSION = '0.01';    # VERSION
+our $VERSION = '0.02';    # VERSION
 use CHI;
 use Digest::SHA1 qw/sha1_base64/;
 use CGI::Cookie;
@@ -37,18 +37,6 @@ sub Jedi::Request::session_set {
 use Moo::Role;
 
 has '_jedi_session' => ( is => 'lazy' );
-
-sub _build__jedi_session {
-    my ($self)     = @_;
-    my $class      = ref $self;
-    my $expires_in = $self->jedi_config->{$class}{session_expiration}
-        // '3 hours';
-    return CHI->new(
-        driver     => 'Memory',
-        datastore  => {},
-        expires_in => $expires_in
-    );
-}
 
 before jedi_app => sub {
     my ($app) = @_;
@@ -107,7 +95,7 @@ Jedi::Plugin::Session::Role - imported method for Jedi::Plugin::Session
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 BUGS
 

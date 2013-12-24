@@ -17,7 +17,7 @@ my %module_build_args = (
     "celogeek <me\@celogeek.com>"
   ],
   "dist_name" => "Jedi-Plugin-Session",
-  "dist_version" => "0.01",
+  "dist_version" => "0.02",
   "license" => "perl",
   "module_name" => "Jedi::Plugin::Session",
   "recommends" => {},
@@ -30,7 +30,11 @@ my %module_build_args = (
     "Import::Into" => 0,
     "Jedi" => "1.002",
     "Module::Runtime" => 0,
+    "Moo" => 0,
     "Moo::Role" => 0,
+    "Redis" => 0,
+    "Sereal" => 0,
+    "Time::Duration::Parse" => 0,
     "perl" => "5.010",
     "strict" => 0,
     "warnings" => 0

@@ -3,5 +3,64 @@ Configuration and command line parameters for this run:
 -html -pre
 To find error messages search for 'WARNING' with your editor
 Line 1 implies starting-indentation-level = 0
+
+########################  WARNING  #########################
+2: session_expiration: 3 hours
+                       - ^    
+found bareword where operator expected (previous token underlined)
+############################################################
+
+########################  WARNING  #########################
+There is no previous '?' to match a ':' on line 3
+3: redis_config:
+               ^
+############################################################
+
+########################  WARNING  #########################
+There is no previous '?' to match a ':' on line 4
+4: reconnect: 2
+            ^
+############################################################
+
+########################  WARNING  #########################
+5: every: 100
+   ^         
+found bareword where operator expected
+############################################################
+
+########################  WARNING  #########################
+Missing ';' above?
+############################################################
+
+########################  WARNING  #########################
+There is no previous '?' to match a ':' on line 5
+5: every: 100
+        ^
+############################################################
+
+########################  WARNING  #########################
+6: server: 127.0.0.1:6900
+   ^                     
+found bareword where operator expected
+############################################################
+
+########################  WARNING  #########################
+Missing ';' above?
+############################################################
+
+########################  WARNING  #########################
+There is no previous '?' to match a ':' on line 6
+6: server: 127.0.0.1:6900
+         ^
+############################################################
+
+########################  WARNING  #########################
+There is no previous '?' to match a ':' on line 6
+6: server: 127.0.0.1:6900
+                    ^
+############################################################
 Suggest including 'use warnings;'
 Suggest including 'use strict;'
+Suggest using upper case characters in label(s)
+  defined at line(s): (2)
+WARNING: To save a full .LOG file rerun with -g

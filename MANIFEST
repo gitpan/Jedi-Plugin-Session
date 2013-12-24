@@ -8,12 +8,17 @@ README
 README.mkdn
 dist.ini
 lib/Jedi/Plugin/Session.pm
+lib/Jedi/Plugin/Session/Backend/Redis.pm
 lib/Jedi/Plugin/Session/Role.pm
+lib/Jedi/Plugin/Session/Role/Memory.pm
+lib/Jedi/Plugin/Session/Role/Redis.pm
 perltidy.LOG
 t/00-compile.t
 t/000-report-versions.t
 t/author-critic.t
+t/lib/role.pm
 t/lib/session.pm
+t/lib/session_redis.pm
 t/release-kwalitee.t
 t/release-unused-vars.t
 t/session.t
