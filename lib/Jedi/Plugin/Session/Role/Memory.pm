@@ -12,14 +12,14 @@ package Jedi::Plugin::Session::Role::Memory;
 
 use strict;
 use warnings;
-our $VERSION = '0.03';    # VERSION
+our $VERSION = '0.04';    # VERSION
 
 use Moo::Role;
 
 sub _build__jedi_session {
     my ($self)     = @_;
     my $class      = ref $self;
-    my $expires_in = $self->jedi_config->{$class}{session_expiration}
+    my $expires_in = $self->jedi_config->{$class}{session}{expiration}
         // '3 hours';
     return CHI->new(
         driver     => 'Memory',
@@ -40,7 +40,7 @@ Jedi::Plugin::Session::Role::Memory - Memory Backend
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 BUGS
 

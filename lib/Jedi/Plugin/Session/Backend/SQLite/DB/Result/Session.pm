@@ -6,30 +6,19 @@
 # This is free software; you can redistribute it and/or modify it under
 # the same terms as the Perl 5 programming language system itself.
 #
-package Jedi::Plugin::Session::Role::Redis;
+package Jedi::Plugin::Session::Backend::SQLite::DB::Result::Session;
 
-# ABSTRACT: Redis Backend
+# ABSTRACT: ResultSet for Session table
 
 use strict;
 use warnings;
 our $VERSION = '0.04';    # VERSION
 
-use Jedi::Plugin::Session::Backend::Redis;
-use Moo::Role;
+use base qw/DBIx::Class::Core/;
 
-sub _build__jedi_session {
-    my ($self)     = @_;
-    my $class      = ref $self;
-    my $expires_in = $self->jedi_config->{$class}{session}{expiration}
-        // '3 hours';
-    my $redis_config = $self->jedi_config->{$class}{session}{redis}{config};
-    my $redis_prefix = $self->jedi_config->{$class}{session}{redis}{prefix};
-    return Jedi::Plugin::Session::Backend::Redis->new(
-        config     => $redis_config,
-        expires_in => $expires_in,
-        prefix     => $redis_prefix
-    );
-}
+__PACKAGE__->table('jedi_session');
+__PACKAGE__->add_columns(qw/id expire_at session/);
+__PACKAGE__->set_primary_key('id');
 
 1;
 
@@ -39,7 +28,7 @@ __END__
 
 =head1 NAME
 
-Jedi::Plugin::Session::Role::Redis - Redis Backend
+Jedi::Plugin::Session::Backend::SQLite::DB::Result::Session - ResultSet for Session table
 
 =head1 VERSION
 

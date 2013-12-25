@@ -6,17 +6,18 @@
 # This is free software; you can redistribute it and/or modify it under
 # the same terms as the Perl 5 programming language system itself.
 #
-package t::lib::session_redis;
+package t::lib::session_sqlite;
+use strict;
+use warnings;
+use Path::Class 0.33;
 use Jedi::App;
-use Jedi::Plugin::Session 'Redis';
+use Jedi::Plugin::Session 'SQLite';
 with 't::lib::role';
-
-my $app_id = 0;
 
 sub jedi_app {
     my ($app) = @_;
-    $app->jedi_config->{'t::lib::session_redis'}{'session'}{'redis'}{'prefix'}
-        = 'test_' . ( ++$app_id );
+    $app->jedi_config->{'t::lib::session_sqlite'}{'session'}{'sqlite'}{'path'}
+        = Path::Class::tempdir( CLEANUP => 1 );
     $app->init_session;
 }
 

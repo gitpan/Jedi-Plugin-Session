@@ -6,22 +6,29 @@
 # This is free software; you can redistribute it and/or modify it under
 # the same terms as the Perl 5 programming language system itself.
 #
-package Jedi::Plugin::Session::Backend::Redis;
+package Jedi::Plugin::Session::Backend::SQLite;
 
-# ABSTRACT: Backend storage for Redis
+# ABSTRACT: Backend storage for SQLite
 
 use strict;
 use warnings;
 our $VERSION = '0.04';    # VERSION
 use Time::Duration::Parse;
 use Sereal qw/encode_sereal decode_sereal/;
-use Redis;
+use Path::Class;
+use Carp;
+use Jedi::Plugin::Session::Backend::SQLite::DB;
+use DBIx::Class::Migration;
 use Moo;
 
-has 'config' => (
-    is      => 'ro',
-    default => sub { {} },
-    coerce  => sub { ref $_[0] eq 'HASH' ? $_[0] : {} }
+has 'database' => (
+    is     => 'ro',
+    coerce => sub {
+        my ($db) = @_;
+        my $dbfile = file($db);
+        $dbfile->dir->mkpath;
+        return _prepare_database($dbfile);
+    }
 );
 
 has 'expires_in' => (
@@ -30,30 +37,23 @@ has 'expires_in' => (
     coerce  => sub { parse_duration( $_[0] ) }
 );
 
-has 'prefix' => (
-    is      => 'rw',
-    default => sub {''},
-    coerce  => sub {
-        my $val = shift;
-        return 'jedi_session_' if !defined $val || !length $val;
-        return 'jedi_session_' . $val . '_';
-    }
-);
-
-has '_redis' => ( is => 'lazy' );
-
-sub _build__redis {
-    my ($self) = @_;
-    return Redis->new( %{ $self->config } );
-}
-
 ## no critic (NamingConventions::ProhibitAmbiguousNames)
+
 sub get {
     my ( $self, $uuid ) = @_;
     return if !defined $uuid;
-    my $session = $self->_redis->get( $self->prefix . $uuid );
-    if ( defined $session ) {
-        return if !eval { $session = decode_sereal($session); 1 };
+    my $resultset = $self->database->resultset('Session');
+    my $now       = time;
+    my $data      = $resultset->find($uuid);
+    my $session;
+    if ( defined $data ) {
+        if ( $data->expire_at > $now ) {
+            return if !eval { $session = decode_sereal( $data->session ); 1 };
+        }
+        else {
+            $resultset->search( { expire_at => { '<=' => $now } } )
+                ->delete_all;
+        }
     }
     return $session;
 }
@@ -62,9 +62,29 @@ sub set {
     my ( $self, $uuid, $value ) = @_;
     return if !defined $uuid;
     my $session = encode_sereal($value);
-    $self->_redis->set( $self->prefix . $uuid, $session );
-    $self->_redis->expire( $self->prefix . $uuid, $self->expires_in );
+    $self->database->resultset('Session')->update_or_create(
+        {   id        => $uuid,
+            expire_at => time + $self->expires_in,
+            session   => $session
+        }
+    );
     return 1;
+}
+
+# PRIVATE
+
+sub _prepare_database {
+    my ($dbfile) = @_;
+    my @connect_info = ( "dbi:SQLite:dbname=" . $dbfile->stringify );
+    my $schema
+        = Jedi::Plugin::Session::Backend::SQLite::DB->connect(@connect_info);
+
+    my $migration = DBIx::Class::Migration->new( schema => $schema, );
+
+    $migration->install_if_needed;
+    $migration->upgrade;
+
+    return $schema;
 }
 
 1;
@@ -75,7 +95,7 @@ __END__
 
 =head1 NAME
 
-Jedi::Plugin::Session::Backend::Redis - Backend storage for Redis
+Jedi::Plugin::Session::Backend::SQLite - Backend storage for SQLite
 
 =head1 VERSION
 

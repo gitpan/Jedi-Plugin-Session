@@ -3,14 +3,18 @@ use warnings;
 
 # this test was generated with Dist::Zilla::Plugin::Test::Compile 2.037
 
-use Test::More tests => 5 + ( $ENV{AUTHOR_TESTING} ? 1 : 0 );
+use Test::More tests => 9 + ( $ENV{AUTHOR_TESTING} ? 1 : 0 );
 
 my @module_files = (
     'Jedi/Plugin/Session.pm',
     'Jedi/Plugin/Session/Backend/Redis.pm',
+    'Jedi/Plugin/Session/Backend/SQLite.pm',
+    'Jedi/Plugin/Session/Backend/SQLite/DB.pm',
+    'Jedi/Plugin/Session/Backend/SQLite/DB/Result/Session.pm',
     'Jedi/Plugin/Session/Role.pm',
     'Jedi/Plugin/Session/Role/Memory.pm',
-    'Jedi/Plugin/Session/Role/Redis.pm'
+    'Jedi/Plugin/Session/Role/Redis.pm',
+    'Jedi/Plugin/Session/Role/SQLite.pm'
 );
 
 # no fake home requested

@@ -29,15 +29,22 @@
             "B::Hooks::EndOfScope" : "0",
             "CGI::Cookie" : "0",
             "CHI" : "0",
+            "Carp" : "0",
+            "DBIx::Class::Core" : "0",
+            "DBIx::Class::Migration" : "0",
+            "DBIx::Class::Schema" : "0",
             "Digest::SHA1" : "0",
+            "File::ShareDir" : "0",
             "Import::Into" : "0",
             "Jedi" : "1.002",
             "Module::Runtime" : "0",
             "Moo" : "0",
             "Moo::Role" : "0",
+            "Path::Class" : "0.33",
             "Redis" : "0",
             "Sereal" : "0",
             "Time::Duration::Parse" : "0",
+            "base" : "0",
             "perl" : "5.010",
             "strict" : "0",
             "warnings" : "0"
@@ -45,15 +52,16 @@
       },
       "test" : {
          "requires" : {
-            "Carp" : "0",
             "File::Spec" : "0",
             "HTTP::Request::Common" : "0",
             "IO::Handle" : "0",
             "IPC::Open3" : "0",
             "Jedi" : "1.002",
             "Jedi::App" : "0",
+            "Path::Class" : "0.33",
             "Plack::Test" : "0",
             "Scalar::Util" : "0",
+            "Test::File::ShareDir" : "0",
             "Test::More" : "0.94",
             "Test::Most" : "0",
             "perl" : "5.010"
@@ -72,7 +80,7 @@
          "web" : "https://github.com/celogeek/perl-jedi-plugin-session"
       }
    },
-   "version" : "0.03",
+   "version" : "0.04",
    "x_Dist_Zilla" : {
       "perl" : {
          "version" : "5.018001"

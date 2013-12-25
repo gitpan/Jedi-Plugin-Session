@@ -12,7 +12,7 @@ package Jedi::Plugin::Session::Role;
 
 use strict;
 use warnings;
-our $VERSION = '0.03';    # VERSION
+our $VERSION = '0.04';    # VERSION
 use CHI;
 use Digest::SHA1 qw/sha1_base64/;
 use CGI::Cookie;
@@ -40,6 +40,7 @@ has '_jedi_session' => ( is => 'lazy' );
 
 before jedi_app => sub {
     my ($app) = @_;
+    $app->_jedi_session;    #init session
     $app->get( qr{.*}x, $app->can('jedi_session_setup') );
     $app->post( qr{.*}x, $app->can('jedi_session_setup') );
     return;
@@ -95,7 +96,7 @@ Jedi::Plugin::Session::Role - imported method for Jedi::Plugin::Session
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 BUGS
 

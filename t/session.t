@@ -13,6 +13,8 @@ use Plack::Test;
 use Module::Runtime qw/use_module/;
 use Carp;
 use Jedi;
+use Test::File::ShareDir -share =>
+    { -dist => { 'Jedi-Plugin-Session' => 'share' } };
 
 my @tests;
 
@@ -24,12 +26,16 @@ BEGIN {
     else {
         diag "Redis not found, skipping redis tests";
     }
+    push @tests, qw/t::lib::session_sqlite/;
 }
 
 for my $test (@tests) {
     note "Testing $test";
 
-    my $jedi = Jedi->new();
+    my $jedi
+        = Jedi->new(
+        config => { $test => { session => { expiration => '2 seconds', } } }
+        );
     $jedi->road( '/'    => $test );
     $jedi->road( '/sub' => $test );
 
@@ -177,6 +183,19 @@ for my $test (@tests) {
                 )
             );
             is $res->content, 'undef', 'another user, same session, diff ip';
+
+            diag "Expiration $test : Waiting 3 s ...";
+            sleep(3);
+            $res = $cb->(
+                HTTP::Request->new(
+                    'GET' => '/sub/get?k=a',
+                    HTTP::Headers->new(
+                        'Cookie' => 'jedi_session=123456789014;'
+                    )
+                )
+            );
+            is $res->content, 'undef', 'value has expired';
+
         }
     };
 
