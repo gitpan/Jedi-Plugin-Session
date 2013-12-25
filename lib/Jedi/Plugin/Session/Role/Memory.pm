@@ -12,7 +12,7 @@ package Jedi::Plugin::Session::Role::Memory;
 
 use strict;
 use warnings;
-our $VERSION = '0.02';    # VERSION
+our $VERSION = '0.03';    # VERSION
 
 use Moo::Role;
 
@@ -40,7 +40,7 @@ Jedi::Plugin::Session::Role::Memory - Memory Backend
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 BUGS
 

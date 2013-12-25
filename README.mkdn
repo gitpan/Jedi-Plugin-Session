@@ -4,7 +4,7 @@ Jedi::Plugin::Session - Session for Jedi
 
 # VERSION
 
-version 0.02
+version 0.03
 
 # DESCRIPTION
 
@@ -88,6 +88,11 @@ You can setup [Redis](http://search.cpan.org/perldoc?Redis) access in the config
        reconnect: 2
        every: 100
        server: 127.0.0.1:6900
+     redis_prefix: my_jedi_app
+
+The redis\_prefix will be used to generate the session key. The result will be :
+
+    jedi_prefix_YOUR_PREFIX_UUID
 
 # BUGS
 

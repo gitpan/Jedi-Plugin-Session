@@ -13,7 +13,7 @@ package Jedi::Plugin::Session;
 use strict;
 use warnings;
 
-our $VERSION = '0.02';    # VERSION
+our $VERSION = '0.03';    # VERSION
 
 use Import::Into;
 use Module::Runtime qw/use_module/;
@@ -43,7 +43,7 @@ Jedi::Plugin::Session - Session for Jedi
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 DESCRIPTION
 
@@ -126,6 +126,11 @@ You can setup L<Redis> access in the configuration like this :
     reconnect: 2
     every: 100
     server: 127.0.0.1:6900
+  redis_prefix: my_jedi_app
+
+The redis_prefix will be used to generate the session key. The result will be :
+
+  jedi_prefix_YOUR_PREFIX_UUID
 
 =head1 BUGS
 

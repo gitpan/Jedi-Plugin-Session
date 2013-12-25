@@ -12,7 +12,7 @@ package Jedi::Plugin::Session::Role::Redis;
 
 use strict;
 use warnings;
-our $VERSION = '0.02';    # VERSION
+our $VERSION = '0.03';    # VERSION
 
 use Jedi::Plugin::Session::Backend::Redis;
 use Moo::Role;
@@ -23,9 +23,11 @@ sub _build__jedi_session {
     my $expires_in = $self->jedi_config->{$class}{session_expiration}
         // '3 hours';
     my $redis_config = $self->jedi_config->{$class}{redis_config};
+    my $redis_prefix = $self->jedi_config->{$class}{redis_prefix};
     return Jedi::Plugin::Session::Backend::Redis->new(
-        redis_config => $redis_config,
-        expires_in   => $expires_in
+        config     => $redis_config,
+        expires_in => $expires_in,
+        prefix     => $redis_prefix
     );
 }
 
@@ -41,7 +43,7 @@ Jedi::Plugin::Session::Role::Redis - Memory Backend
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 BUGS
 

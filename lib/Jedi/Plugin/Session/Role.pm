@@ -12,7 +12,7 @@ package Jedi::Plugin::Session::Role;
 
 use strict;
 use warnings;
-our $VERSION = '0.02';    # VERSION
+our $VERSION = '0.03';    # VERSION
 use CHI;
 use Digest::SHA1 qw/sha1_base64/;
 use CGI::Cookie;
@@ -95,7 +95,7 @@ Jedi::Plugin::Session::Role - imported method for Jedi::Plugin::Session
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 BUGS
 

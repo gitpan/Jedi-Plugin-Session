@@ -30,7 +30,8 @@ for my $test (@tests) {
     note "Testing $test";
 
     my $jedi = Jedi->new();
-    $jedi->road( '/' => $test );
+    $jedi->road( '/'    => $test );
+    $jedi->road( '/sub' => $test );
 
     test_psgi $jedi->start, sub {
         my $cb = shift;
@@ -138,6 +139,16 @@ for my $test (@tests) {
 
             $res = $cb->(
                 HTTP::Request->new(
+                    'GET' => '/sub/set?k=a&v=3',
+                    HTTP::Headers->new(
+                        'Cookie' => 'jedi_session=123456789014;'
+                    )
+                )
+            );
+            is $res->content, 'ok', 'sub value set to 3';
+
+            $res = $cb->(
+                HTTP::Request->new(
                     'GET' => '/get?k=a',
                     HTTP::Headers->new(
                         'Cookie' => 'jedi_session=123456789014;'
@@ -145,6 +156,16 @@ for my $test (@tests) {
                 )
             );
             is $res->content, '2', 'value get is 2';
+
+            $res = $cb->(
+                HTTP::Request->new(
+                    'GET' => '/sub/get?k=a',
+                    HTTP::Headers->new(
+                        'Cookie' => 'jedi_session=123456789014;'
+                    )
+                )
+            );
+            is $res->content, '3', 'value get is 3';
 
             $res = $cb->(
                 HTTP::Request->new(
