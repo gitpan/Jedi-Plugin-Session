@@ -6,18 +6,43 @@
 # This is free software; you can redistribute it and/or modify it under
 # the same terms as the Perl 5 programming language system itself.
 #
-package Jedi::Plugin::Session::Backend::SQLite::DB;
+package Jedi::Plugin::Session::Backend::Memory;
 
-# ABSTRACT: Schema for SQLite Session
+# ABSTRACT: Backend storage for Memory
 
 use strict;
 use warnings;
+our $VERSION = '0.05';    # VERSION
+use Time::Duration::Parse;
+use Cache::LRU::WithExpires;
+use Moo;
 
-our $VERSION = 1;    #Schema Version
+has '_cache' => ( is => 'lazy' );
 
-use base qw/DBIx::Class::Schema/;
+sub _build__cache {
+    return Cache::LRU::WithExpires->new;
+}
 
-__PACKAGE__->load_classes( { __PACKAGE__ . '::Result' => [qw/Session/] } );
+has 'expires_in' => (
+    is      => 'ro',
+    default => sub { 3 * 3600 },
+    coerce  => sub { parse_duration( $_[0] ) }
+);
+
+## no critic (NamingConventions::ProhibitAmbiguousNames)
+sub get {
+    my ( $self, $uuid ) = @_;
+    return if !defined $uuid;
+
+    return $self->_cache->get($uuid);
+}
+
+sub set {
+    my ( $self, $uuid, $value ) = @_;
+    return if !defined $uuid;
+    $self->_cache->set( $uuid, $value, $self->expires_in );
+    return 1;
+}
 
 1;
 
@@ -27,7 +52,7 @@ __END__
 
 =head1 NAME
 
-Jedi::Plugin::Session::Backend::SQLite::DB - Schema for SQLite Session
+Jedi::Plugin::Session::Backend::Memory - Backend storage for Memory
 
 =head1 VERSION
 

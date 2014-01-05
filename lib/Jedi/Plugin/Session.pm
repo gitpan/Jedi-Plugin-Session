@@ -13,7 +13,7 @@ package Jedi::Plugin::Session;
 use strict;
 use warnings;
 
-our $VERSION = '0.04';    # VERSION
+our $VERSION = '0.05';    # VERSION
 
 use Import::Into;
 use Module::Runtime qw/use_module/;
@@ -43,7 +43,7 @@ Jedi::Plugin::Session - Session for Jedi
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 DESCRIPTION
 

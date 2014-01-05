@@ -29,7 +29,7 @@ name: Jedi-Plugin-Session
 requires:
   B::Hooks::EndOfScope: 0
   CGI::Cookie: 0
-  CHI: 0
+  Cache::LRU::WithExpires: 0
   Carp: 0
   DBIx::Class::Core: 0
   DBIx::Class::Migration: 0
@@ -53,7 +53,7 @@ resources:
   bugtracker: https://github.com/celogeek/perl-jedi-plugin-session/issues
   homepage: https://tasks.celogeek.com/projects/perl-modules-jedi
   repository: https://github.com/celogeek/perl-jedi-plugin-session.git
-version: 0.04
+version: 0.05
 x_Dist_Zilla:
   perl:
     version: 5.018001
@@ -148,7 +148,7 @@ x_Dist_Zilla:
           script_finder:
             - ':ExecFiles'
       name: '@GRS/Test::Compile'
-      version: 2.037
+      version: 2.039
     -
       class: Dist::Zilla::Plugin::Test::UnusedVars
       name: '@GRS/Test::UnusedVars'

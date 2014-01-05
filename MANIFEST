@@ -8,6 +8,7 @@ README
 README.mkdn
 dist.ini
 lib/Jedi/Plugin/Session.pm
+lib/Jedi/Plugin/Session/Backend/Memory.pm
 lib/Jedi/Plugin/Session/Backend/Redis.pm
 lib/Jedi/Plugin/Session/Backend/SQLite.pm
 lib/Jedi/Plugin/Session/Backend/SQLite/DB.pm

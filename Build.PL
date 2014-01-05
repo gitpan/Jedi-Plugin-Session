@@ -17,7 +17,7 @@ my %module_build_args = (
     "celogeek <me\@celogeek.com>"
   ],
   "dist_name" => "Jedi-Plugin-Session",
-  "dist_version" => "0.04",
+  "dist_version" => "0.05",
   "license" => "perl",
   "module_name" => "Jedi::Plugin::Session",
   "recommends" => {},
@@ -25,7 +25,7 @@ my %module_build_args = (
   "requires" => {
     "B::Hooks::EndOfScope" => 0,
     "CGI::Cookie" => 0,
-    "CHI" => 0,
+    "Cache::LRU::WithExpires" => 0,
     "Carp" => 0,
     "DBIx::Class::Core" => 0,
     "DBIx::Class::Migration" => 0,

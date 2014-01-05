@@ -12,7 +12,7 @@ package Jedi::Plugin::Session::Role::SQLite;
 
 use strict;
 use warnings;
-our $VERSION = '0.04';    # VERSION
+our $VERSION = '0.05';    # VERSION
 
 use File::ShareDir;
 use Path::Class;
@@ -52,7 +52,7 @@ Jedi::Plugin::Session::Role::SQLite - SQLite Backend
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 BUGS
 

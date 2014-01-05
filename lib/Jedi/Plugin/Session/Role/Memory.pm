@@ -12,7 +12,8 @@ package Jedi::Plugin::Session::Role::Memory;
 
 use strict;
 use warnings;
-our $VERSION = '0.04';    # VERSION
+our $VERSION = '0.05';    # VERSION
+use Jedi::Plugin::Session::Backend::Memory;
 
 use Moo::Role;
 
@@ -21,11 +22,8 @@ sub _build__jedi_session {
     my $class      = ref $self;
     my $expires_in = $self->jedi_config->{$class}{session}{expiration}
         // '3 hours';
-    return CHI->new(
-        driver     => 'Memory',
-        datastore  => {},
-        expires_in => $expires_in
-    );
+    return Jedi::Plugin::Session::Backend::Memory->new(
+        expires_in => $expires_in );
 }
 
 1;
@@ -40,7 +38,7 @@ Jedi::Plugin::Session::Role::Memory - Memory Backend
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 BUGS
 

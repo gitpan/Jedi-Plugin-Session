@@ -1,12 +1,14 @@
+use 5.006;
 use strict;
 use warnings;
 
-# this test was generated with Dist::Zilla::Plugin::Test::Compile 2.037
+# this test was generated with Dist::Zilla::Plugin::Test::Compile 2.039
 
-use Test::More tests => 9 + ( $ENV{AUTHOR_TESTING} ? 1 : 0 );
+use Test::More tests => 10 + ( $ENV{AUTHOR_TESTING} ? 1 : 0 );
 
 my @module_files = (
     'Jedi/Plugin/Session.pm',
+    'Jedi/Plugin/Session/Backend/Memory.pm',
     'Jedi/Plugin/Session/Backend/Redis.pm',
     'Jedi/Plugin/Session/Backend/SQLite.pm',
     'Jedi/Plugin/Session/Backend/SQLite/DB.pm',
@@ -25,11 +27,12 @@ use File::Spec;
 use IPC::Open3;
 use IO::Handle;
 
+open my $stdin, '<', File::Spec->devnull or die "can't open devnull: $!";
+
 my @warnings;
 for my $lib (@module_files) {
 
     # see L<perlfaq8/How can I capture STDERR from an external command?>
-    open my $stdin, '<', File::Spec->devnull or die "can't open devnull: $!";
     my $stderr = IO::Handle->new;
 
     my $pid = open3( $stdin, '>&STDERR', $stderr, $^X, $inc_switch, '-e',

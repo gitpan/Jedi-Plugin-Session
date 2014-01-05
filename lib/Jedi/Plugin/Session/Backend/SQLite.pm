@@ -12,7 +12,7 @@ package Jedi::Plugin::Session::Backend::SQLite;
 
 use strict;
 use warnings;
-our $VERSION = '0.04';    # VERSION
+our $VERSION = '0.05';    # VERSION
 use Time::Duration::Parse;
 use Sereal qw/encode_sereal decode_sereal/;
 use Path::Class;
@@ -99,7 +99,7 @@ Jedi::Plugin::Session::Backend::SQLite - Backend storage for SQLite
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 BUGS
 

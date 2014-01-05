@@ -4,11 +4,11 @@ Jedi::Plugin::Session - Session for Jedi
 
 # VERSION
 
-version 0.04
+version 0.05
 
 # DESCRIPTION
 
-This plugin add to the [Jedi::Request](http://search.cpan.org/perldoc?Jedi::Request) two methods : __session\_get__ and __session\_set__
+This plugin add to the [Jedi::Request](https://metacpan.org/pod/Jedi::Request) two methods : __session\_get__ and __session\_set__
 
 A secure UUID is generated on all get/post request, and if the cookie jedi\_session is missing, then it will automatically
 create it to keep the same UUID between each request.
@@ -17,7 +17,7 @@ If the cookie with the UUID is copied on a different browser / computer, it will
 
 # SYNOPSIS
 
-The session is very specific to an app, different app in the same [Jedi](http://search.cpan.org/perldoc?Jedi) instance, will use different session data.
+The session is very specific to an app, different app in the same [Jedi](https://metacpan.org/pod/Jedi) instance, will use different session data.
 
     package MyJediApp;
     use Jedi::App;
@@ -35,7 +35,6 @@ The session is very specific to an app, different app in the same [Jedi](http://
        $response->body('session set !')
      });
     
-
      $app->get('/get_session', sub {
        my ($app, $request, $response) = @_;
        my $session = $request->session_get;
@@ -59,7 +58,7 @@ To change the default expiration for your app, you can use the configuration lik
      session:
        expiration: 3 hours
 
-Check [Time::Duration::Parse](http://search.cpan.org/perldoc?Time::Duration::Parse) for the possible value of the expiration.
+Check [Time::Duration::Parse](https://metacpan.org/pod/Time::Duration::Parse) for the possible value of the expiration.
 
 If you need to set the full expiration time again, you can just set again the session :
 
@@ -69,11 +68,11 @@ If you need to set the full expiration time again, you can just set again the se
 
 ## Memory
 
-The default backend is memory. It use [CHI](http://search.cpan.org/perldoc?CHI) with the Memory driver.
+The default backend is memory. It use [CHI](https://metacpan.org/pod/CHI) with the Memory driver.
 
 ## Redis
 
-You can use [Redis](http://search.cpan.org/perldoc?Redis) as a backend.
+You can use [Redis](https://metacpan.org/pod/Redis) as a backend.
 
     package MyJediApp;
     use Jedi::App;
@@ -81,7 +80,7 @@ You can use [Redis](http://search.cpan.org/perldoc?Redis) as a backend.
 
 Everything work the same way.
 
-You can setup [Redis](http://search.cpan.org/perldoc?Redis) access in the configuration like this :
+You can setup [Redis](https://metacpan.org/pod/Redis) access in the configuration like this :
 
     MyJediApp: # package name of your app
      session:
@@ -99,7 +98,7 @@ The redis\_prefix will be used to generate the session key. The result will be :
 
 ## SQLite
 
-You can use [DBD::SQLite](http://search.cpan.org/perldoc?DBD::SQLite) as a backend.
+You can use [DBD::SQLite](https://metacpan.org/pod/DBD::SQLite) as a backend.
 
     package MyJediApp;
     use Jedi::App;

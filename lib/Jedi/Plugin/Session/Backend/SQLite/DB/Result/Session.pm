@@ -12,7 +12,7 @@ package Jedi::Plugin::Session::Backend::SQLite::DB::Result::Session;
 
 use strict;
 use warnings;
-our $VERSION = '0.04';    # VERSION
+our $VERSION = '0.05';    # VERSION
 
 use base qw/DBIx::Class::Core/;
 
@@ -32,7 +32,7 @@ Jedi::Plugin::Session::Backend::SQLite::DB::Result::Session - ResultSet for Sess
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 BUGS
 

@@ -12,7 +12,7 @@ package Jedi::Plugin::Session::Role::Redis;
 
 use strict;
 use warnings;
-our $VERSION = '0.04';    # VERSION
+our $VERSION = '0.05';    # VERSION
 
 use Jedi::Plugin::Session::Backend::Redis;
 use Moo::Role;
@@ -43,7 +43,7 @@ Jedi::Plugin::Session::Role::Redis - Redis Backend
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 BUGS
 
